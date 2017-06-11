@@ -14,7 +14,12 @@ export class DataService {
   constructor(private _http: Http, private _router: Router,
     private _authenticationService: AuthenticationService,
     private _notificationService: NotificationService,
-    private _utilityService: UtilityService) { }
+    private _utilityService: UtilityService) { 
+
+      this.headers = new Headers();
+      this.headers.append('Content-Type','application/json');
+
+    }
 
   get(url: string) {
 

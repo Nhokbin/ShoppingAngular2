@@ -23,7 +23,7 @@ export class AuthenticationService {
 
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.post(SystemConstants.BASE_API + '/api/user/login', body, options).map((response: Response) => {
+    return this._http.post(SystemConstants.BASE_API + '/user/login', body, options).map((response: Response) => {
       let user: LoggedInUser = response.json();
       if (user && user.access_token) {
         localStorage.removeItem(SystemConstants.CURRENT_USER);
