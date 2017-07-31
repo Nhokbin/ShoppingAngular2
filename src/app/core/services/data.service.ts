@@ -14,12 +14,12 @@ export class DataService {
   constructor(private _http: Http, private _router: Router,
     private _authenticationService: AuthenticationService,
     private _notificationService: NotificationService,
-    private _utilityService: UtilityService) { 
+    private _utilityService: UtilityService) {
 
-      this.headers = new Headers();
-      this.headers.append('Content-Type','application/json');
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
 
-    }
+  }
 
   get(url: string) {
 
@@ -48,7 +48,7 @@ export class DataService {
     this.headers.delete("Authorization");
     this.headers.append('Authorization', this._authenticationService.getLoggedInUser().access_token);
 
-    return this._http.delete(SystemConstants.BASE_API + url + "/?" + key + "=" + id, { headers: this.headers }).map(this.extracData);
+    return this._http.delete(SystemConstants.BASE_API + url + "?" + key + "=" + id, { headers: this.headers }).map(this.extracData);
 
   }
 
@@ -57,8 +57,10 @@ export class DataService {
     let newHeader = new Headers();
 
     newHeader.append('Authorization', this._authenticationService.getLoggedInUser().access_token);
+    //newHeader.append('Content-Type', undefined );
+    //newHeader.append('Accept', 'application/json');
 
-    return this._http.post(SystemConstants.BASE_API + url, data, { headers: this.headers }).map(this.extracData);
+    return this._http.post(SystemConstants.BASE_API + url, data, { headers: newHeader }).map(this.extracData);
 
   }
 
@@ -73,8 +75,8 @@ export class DataService {
       this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
       this._utilityService.navigateToLogin();
     } else {
-      let errMsg = (error.message) ? error.message :
-        error.status ? `${error.status} - ${error.statusText}` : 'Lỗi hệ thống';
+      let errMsg = (error._body.message) ? error._body.message :
+        error._body.status ? `${error._body.status} - ${error._body.status}` : 'Lỗi hệ thống';
       this._notificationService.printErrorMessage(errMsg);
 
       return Observable.throw(errMsg);

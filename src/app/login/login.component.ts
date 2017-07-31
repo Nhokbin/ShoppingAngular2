@@ -21,13 +21,17 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private notificationService: NotificationService,
     private router: Router
-  ) { }
+  ) {
+    document.body.className = '';
+    document.body.classList.add('login');
+  }
 
   ngOnInit() {
   }
 
   login() {
     this.loading = true;
+    console.log(this.model);
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(data => {
 

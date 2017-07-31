@@ -6,7 +6,6 @@ import { LoginComponent } from './login.component';
 import { NotificationService } from '../core/services/notification.service';
 import { AuthenticationService } from '../core/services/authentication.service';
 
-
 export const routes: Routes = [
   { path: '', component: LoginComponent }
 ];
@@ -17,7 +16,11 @@ export const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [AuthenticationService, NotificationService],
+  providers: [
+    AuthenticationService,
+    NotificationService
+     
+     ],
 
   declarations: [LoginComponent]
 })

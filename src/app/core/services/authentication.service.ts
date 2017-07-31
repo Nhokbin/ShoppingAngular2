@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 export class AuthenticationService {
 
   constructor(private _http: Http) {
-
+    
   }
 
   login(username: string, password: string) {
@@ -51,15 +51,19 @@ export class AuthenticationService {
     if (this.isUserAuthenticated()) {
       var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
       user = new LoggedInUser(
+        userData.id,
         userData.access_token,
         userData.username,
         userData.fullname,
         userData.email,
-        userData.avatar
+        userData.avatar,
+        userData.roles
       );
     } else {
       user = null;
     }
     return user;
   }
+
+
 }

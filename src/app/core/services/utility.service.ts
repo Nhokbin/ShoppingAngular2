@@ -7,7 +7,7 @@ import { AuthenticationService } from './authentication.service';
 @Injectable()
 export class UtilityService {
 
-private _router: Router;
+  private _router: Router;
 
   constructor(router: Router, private http: Http, private authenticationService: AuthenticationService) {
     this._router = router;
@@ -24,22 +24,23 @@ private _router: Router;
   navigateToLogin() {
     this._router.navigate([UrlConstants.LOGIN]);
   }
+
   Unflatten = (arr: any[]): any[] => {
     let map = {};
     let roots: any[] = [];
     for (var i = 0; i < arr.length; i += 1) {
       let node = arr[i];
       node.children = [];
-      map[node.Id] = i; // use map to look-up the parents
-      if (node.ParentId !== null) {
-        arr[map[node.ParentId]].children.push(node);
+      map[node.id] = i; // use map to look-up the parents
+      if (node._parentId !== null && node._parentId !== 0) {
+        arr[map[node._parentId]].children.push(node);
       } else {
         roots.push(node);
       }
     }
     return roots;
   }
-  
+
 
   MakeSeoTitle(input: string) {
     if (input == undefined || input == '')
